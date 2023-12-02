@@ -1,8 +1,12 @@
-from meteor_data_class import *
+"""Filename: try_except.py
+Author: Nicholas Young
+Date: December 2023"""
+
 from user_input import *
 
 
 def try_filter():
+    """Try to run the filter_prompter, re-prompt endlessly until acceptable input is given"""
     testval = True
     while testval:
         try:
@@ -14,6 +18,8 @@ def try_filter():
 
 
 def try_file():
+    """Try to run the file_prompter, re-prompt endlessly until acceptable input is given"""
+
     testval = True
     while testval:
         try:
@@ -25,6 +31,8 @@ def try_file():
 
 
 def try_option():
+    """Try to run the open_option_prompter, re-prompt endlessly until acceptable input is given"""
+
     testval = True
     while testval:
         try:
@@ -36,6 +44,8 @@ def try_option():
 
 
 def try_bound(bound_string, filter_name):
+    """Try to run bound_finder, re-prompt endlessly until acceptable input is given"""
+
     testval = True
     while testval:
         try:

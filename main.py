@@ -1,11 +1,11 @@
+"""
+Filename: main.py
+Author: Nicholas Young
+Date: December 2023"""
+
 from meteor_data_class import meteor_object_creator, meteor_value_check
 from user_input import output_handler, fill_user_input
 from try_except import try_filter, try_file, try_option, try_bound
-
-"""
-Written by Nicholas Young
-Written in December 2023
-"""
 
 
 def main():
@@ -17,10 +17,11 @@ def main():
     user_input = fill_user_input(file_name, file_option, meteorite_filter, lower_bound, upper_bound)
 
     meteor_list = filter_meteorite_data(user_input)
-    output_handler(meteorite_filter, meteor_list)
+    output_handler(meteor_list)
 
 
 def welcome_text():
+    """Prints the welcome text to the terminal"""
     print("Welcome to the meteorite filtering program, where we filter your meteorites according to mass OR year "
           "(given some input)")
     print("Developed by Nick Young")
@@ -28,6 +29,7 @@ def welcome_text():
 
 
 def get_user_input():
+    """Runs all other functions that involve user input"""
     file_name = try_file()
     file_option = try_option()
     meteorite_filter = try_filter()
@@ -50,6 +52,7 @@ def filter_meteorite_data(user_input):
 
 
 def list_filler(data_list, meteor_list, user_input):
+    """Fills the meteor_list with meteor objects that fit user specified requirements"""
     if meteor_value_check(data_list, user_input):
         new_meteorite = meteor_object_creator(data_list)
         meteor_list.append(new_meteorite)

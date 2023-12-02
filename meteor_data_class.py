@@ -51,5 +51,6 @@ class MeteorDataEntry(object):
         self.counties = counties
 
     def get_values(self):
+        """Allows usage of .get_values to get a list of all values stored in the meteorite object"""
         return [self.name, self.id, self.nameType, self.recordedClass, self.mass, self.fall, self.year,
                 self.recordedLatitude, self.recordedLongitude, self.geolocation, self.states, self.counties]

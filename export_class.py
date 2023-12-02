@@ -1,8 +1,13 @@
+"""Filename: export_class.py
+Author: Nicholas Young
+Date: December 2023"""
+
 from datetime import datetime
 from xlwt import Workbook
 
 
 def get_clean_datetime_string():
+    """Returns the current year, month, day, hour, minute, second, and microsecond as a string"""
     current_timestamp = datetime.now()
     current_timestamp.strftime("%Y-%m-%d %H-%M-%S")
     clean_timestamp_str = current_timestamp.__str__().replace(':', '_')
@@ -13,7 +18,7 @@ def get_clean_datetime_string():
 
 def terminal(data_list):
     """
-    Prints meteor objects in given list
+    Print the filtered data to the terminal
 
     :param data_list:
     :return:
@@ -31,6 +36,7 @@ def terminal(data_list):
 
 
 def text_file(data_list):
+    """Output the filtered data to a txt file"""
     file = open(get_clean_datetime_string() + ".txt", "x")
 
     file.write("Name\tId\tName Type\tRecorded Class\tMass\tFall\tYear\tRec Lat"
@@ -42,6 +48,7 @@ def text_file(data_list):
 
 
 def excel_export(meteor_list):
+    """Output the filtered data to an xls file"""
     excel_workbook = Workbook()
     filtered_data_sheet = excel_workbook.add_sheet('filteredMeteoriteData')
 
@@ -55,6 +62,7 @@ def excel_export(meteor_list):
 
 
 def append_meteorites(filtered_data_sheet, meteor_list):
+    """Append to the filtered_data_sheet every object in the meteor_list"""
     for filtered_index in range(len(meteor_list)):
         current_meteorite_record_obj = meteor_list[filtered_index]
 
@@ -64,6 +72,8 @@ def append_meteorites(filtered_data_sheet, meteor_list):
 
 
 def append_header(filtered_data_sheet):
+    """Append the column headers/titles to the filtered_data_sheet. It may be called append but it appends to the
+    firs row only"""
     column_headers = ["Name", "Id", "Name Type", "Recorded Class", "Mass", "Fall", "Year", "Rec Lat", "Rec Long",
                       "Geolocation", "States", "Counties"]
     index = 0

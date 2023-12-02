@@ -1,6 +1,7 @@
 """Filename: user_input.py
 Author: Nicholas Young
 Date: December 2023"""
+
 from export_class import text_file, terminal, excel_export
 
 MASS = 4
@@ -17,6 +18,8 @@ def quit_program_gracefully():
 
 
 def file_printer(filename):
+    """Prints the contents of a file to the terminal
+    Intended to be used for long user input strings"""
     with open(filename, "r") as file:
         for line in file:
             print(line.strip())
@@ -83,7 +86,7 @@ def open_option_prompter():
 
 def filter_prompter():
     """
-    Prints request for which column of the file to sort for, takes user input()
+    Prints request for which column of the file to sort for, takes user input
     :return:
     """
 
@@ -103,7 +106,7 @@ def filter_prompter():
             raise ValueError(f"Error: Invalid option '{user_filter_input}'")
 
 
-def output_handler(list_sort, data_value_list):
+def output_handler(data_value_list):
     """Prints request for which type of output the program should provide, takes user input()"""
     user_output_selection = input("How would you like to output the filter results?\n"
                                   "1. On screen (in terminal)\n"
@@ -123,11 +126,13 @@ def output_handler(list_sort, data_value_list):
 
 
 def fill_user_input(name, option, file_filter, lower, upper):
+    """Fills the UserInput object"""
     user_input = UserInput(name, option, file_filter, lower, upper)
     return user_input
 
 
 class UserInput(object):
+    """An object to store the input of users more portably"""
     def __init__(self, name, option, file_filter, lower, upper):
         self.name = name
         self.option = option
