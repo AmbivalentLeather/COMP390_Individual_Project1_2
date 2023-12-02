@@ -34,19 +34,12 @@ def bound_finder(upper_or_lower, mass_or_year):
     column = 'MASS (g)' if mass_or_year == 4 else 'YEAR'
     input_bound = input("Enter the " + upper_or_lower + " limit (inclusive) for the meteor's " +
                         column + " ('Q' to QUIT):\t")
-    if isinstance(input_bound, int):
-        pass
-    else:
-        raise ValueError(f"Error: '{input_bound}' is not an integer")
+    # if isinstance(input_bound, int):
+    #     pass
+    # else:
+    #     raise ValueError(f"Error: '{input_bound}' is not an integer")
     quit_program_gracefully() if input_bound.lower() == "q" else None
     return input_bound
-
-
-def welcome_text():
-    print("Welcome to the meteorite filtering program, where we filter your meteorites according to mass OR year "
-          "(given some input)")
-    print("Developed by Nick Young")
-    print("Released in December of 2023\n")
 
 
 def file_prompter():
@@ -118,7 +111,7 @@ def output_handler(list_sort, data_value_list):
                                   "3. To an EXCEL file\n"
                                   "4. QUIT\n>> ")
     if user_output_selection == "1":
-        terminal(list_sort, data_value_list)
+        terminal(data_value_list)
     elif user_output_selection == "2":
         text_file(data_value_list)
     elif user_output_selection == "3":

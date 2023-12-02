@@ -49,3 +49,7 @@ class MeteorDataEntry(object):
         self.geolocation = geolocation
         self.states = states
         self.counties = counties
+
+    def get_values(self):
+        return [self.name, self.id, self.nameType, self.recordedClass, self.mass, self.fall, self.year,
+                self.recordedLatitude, self.recordedLongitude, self.geolocation, self.states, self.counties]
