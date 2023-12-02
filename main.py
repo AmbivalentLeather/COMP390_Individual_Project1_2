@@ -1,4 +1,4 @@
-from meteor_data_class import meteor_object_creator, meteor_value_check, which_meteorite_element
+from meteor_data_class import meteor_object_creator, meteor_value_check
 from user_input import (bound_finder, welcome_text, file_prompter, open_option_prompter,
                         filter_prompter, output_handler, fill_user_input)
 

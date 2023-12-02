@@ -17,15 +17,14 @@ def meteor_object_creator(data_list):
 
 def meteor_value_check(data_list, user_input):
     """
-    Check if data_list
-
+    Check if data_list user_input.filter
     :param data_list:
     :param user_input:
     :return:
     """
-    if int(float(data_list[user_input.file_filter])) >= int(float(user_input.lower)):
+    if int(float(data_list[4])) >= int(float(user_input.lower)):
         return False
-    if int(float(data_list[user_input.file_filter])) <= int(float(user_input.upper)):
+    if int(float(data_list[4])) <= int(float(user_input.upper)):
         return True
 
 

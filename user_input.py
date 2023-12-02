@@ -33,10 +33,14 @@ def bound_finder(upper_or_lower, mass_or_year):
         :param upper_or_lower:
         :return:
         """
+    if mass_or_year == 4:
+        column = 'mass'
+    else:
+        column = 'year'
 
     # Always prints mass?
     input_bound = input("Enter the " + upper_or_lower + " limit (inclusive) for the meteor's " +
-                        mass_or_year + " ('Q' to QUIT):\t")
+                        column + " ('Q' to QUIT):\t")
     if input_bound == "Q":
         quit_program_gracefully()
     elif input_bound == "q":
