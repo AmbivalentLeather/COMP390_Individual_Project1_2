@@ -3,6 +3,8 @@ Filename: meteor_data_class.py
 Author: Nicholas Young
 Date: October 2023"""
 
+from pathlib import Path
+
 
 def meteor_object_creator(data_value_list, output_list):
     """
@@ -34,27 +36,6 @@ def meteor_value_check(data_value_list, list_index, lower_bound, upper_bound):
         return False
 
 
-def meteor_print_table(value_label, data_value_list):
-    """
-    Prints meteor objects in given list
-
-    :param value_label:
-    :param data_value_list:
-    :return:
-    """
-    print(f'\n\t{"NAME":<24}\t{value_label:<18}')
-    print('=' * 40)
-
-    for index, meteor in enumerate(data_value_list, 1):
-        name = meteor.name
-        if value_label == 'YEAR':
-            value = meteor.year
-        else:
-            value = meteor.mass
-        print(f'{index}\t{name:<24}\t{value:<20}')
-    print("\n")
-
-
 def which_meteorite_element(element):
     """Maps a provided element to its associated number."""
     element = element.lower()
@@ -79,7 +60,6 @@ def which_meteorite_element(element):
 
     print('No element provided')
     exit()
-
 
 
 class MeteorDataEntry:

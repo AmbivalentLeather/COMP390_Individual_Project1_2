@@ -1,0 +1,7 @@
+What mode would you like to open the file with?
+"r" - open for reading (default)
+"w" - open for writing, truncating the file first (WARNING: This will delete
+        the contents of an existing file!)
+"x" - open for exclusive creation, failing if the file already exists
+"a" - open for writing, appending to the end of file if it exists
+Enter ">q" or ">Q" to quit

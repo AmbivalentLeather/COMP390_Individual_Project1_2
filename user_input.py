@@ -1,6 +1,9 @@
 """Filename: user_input.py
 Author: Nicholas Young
 Date: October 2023"""
+import os.path
+
+from export_class import text_file, terminal, excel_export
 
 
 def quit_program_gracefully():
@@ -10,6 +13,12 @@ def quit_program_gracefully():
     """
     print("\nThe program is now exiting... GOODBYE")
     quit()
+
+
+def file_printer(filename):
+    with open(filename, "r") as file:
+        for line in file:
+            print(line.strip())
 
 
 def bound_finder(upper_or_lower):
@@ -41,8 +50,20 @@ def file_prompter():
     Prompts the user for the name of a file to parse through
     :return:
     """
-    user_file_input = input("Enter a valid file name (ex. \"file_name.txt\") with its file extension (if applicable) "
-                            "|or| \nEnter \">q\" or \">Q\" to quit:\t")
+
+    truth_tester = True
+    while truth_tester:
+        try:
+            user_file_input = input(
+                "Enter a valid file name (ex. \"file_name.txt\") with its file extension (if applicable) "
+                "|or| \nEnter \">q\" or \">Q\" to quit:\t")
+            # Attempt to open the file (this will raise FileNotFoundError if the file doesn't exist)
+            with open(user_file_input):
+                pass
+            truth_tester = False
+        except FileNotFoundError:
+            print(f"Error: '{user_file_input}' does not exist.")
+
     if user_file_input == ">q":
         quit_program_gracefully()
     elif user_file_input == ">Q":
@@ -57,16 +78,9 @@ def open_option_prompter():
     Prints request for which mode to open a file with, takes user input()
     :return:
     """
-    user_option_input = input("What mode would you like to open the file with?\n"
-                              "\"r\" - open for reading (default)\n"
-                              "\"W\" - open for writing, truncating the file first\n"
-                              "\"X\" - open for exclusive creation, failing if the file already exists\n"
-                              "\"a\" - open for writing, appending to the end of file if it exists\n"
-                              "\"b\" - binary mode\n"
-                              "\"t\" - text mode (default)\n"
-                              "\"+\" - open for updating (reading and writing)\n"
-                              "Enter \">q\" or \">Q\" to quit\n"
-                              "Mode ->\t")
+    file_printer("file_open_options.txt")
+    user_option_input = input("Mode >> ")
+
     if user_option_input == ">q":
         quit_program_gracefully()
     elif user_option_input == ">Q":
@@ -91,4 +105,23 @@ def filter_prompter():
     elif user_filter_input == "2":
         return 'year'
     elif user_filter_input == "3":
+        quit_program_gracefully()
+    else:
+        print('Invalid option')
+
+
+def output_handler(list_sort, data_value_list):
+    """Prints request for which type of output the program should provide, takes user input()"""
+    user_output_selection = input("How would you like to output the filter results?\n"
+                                  "1. On screen (in terminal)\n"
+                                  "2. To a TEXT file\n"
+                                  "3. To an EXCEL file\n"
+                                  "4. QUIT\n>> ")
+    if user_output_selection == "1":
+        terminal(list_sort, data_value_list)
+    elif user_output_selection == "2":
+        text_file(data_value_list)
+    elif user_output_selection == "3":
+        excel_export(data_value_list)
+    elif user_output_selection == "4":
         quit_program_gracefully()
