@@ -1,8 +1,6 @@
 """Filename: user_input.py
 Author: Nicholas Young
-Date: October 2023"""
-import os.path
-
+Date: December 2023"""
 from export_class import text_file, terminal, excel_export
 
 MASS = 4
@@ -33,19 +31,14 @@ def bound_finder(upper_or_lower, mass_or_year):
         :param upper_or_lower:
         :return:
         """
-    if mass_or_year == 4:
-        column = 'mass'
-    else:
-        column = 'year'
-
-    # Always prints mass?
+    column = 'MASS (g)' if mass_or_year == 4 else 'YEAR'
     input_bound = input("Enter the " + upper_or_lower + " limit (inclusive) for the meteor's " +
                         column + " ('Q' to QUIT):\t")
-    if input_bound == "Q":
-        quit_program_gracefully()
-    elif input_bound == "q":
-        quit_program_gracefully()
-
+    if isinstance(input_bound, int):
+        pass
+    else:
+        raise ValueError(f"Error: '{input_bound}' is not an integer")
+    quit_program_gracefully() if input_bound.lower() == "q" else None
     return input_bound
 
 
@@ -53,7 +46,7 @@ def welcome_text():
     print("Welcome to the meteorite filtering program, where we filter your meteorites according to mass OR year "
           "(given some input)")
     print("Developed by Nick Young")
-    print("Released in October of 2023\n")
+    print("Released in December of 2023\n")
 
 
 def file_prompter():
@@ -62,26 +55,18 @@ def file_prompter():
     :return:
     """
 
-    truth_tester = True
-    while truth_tester:
-        try:
-            user_file_input = input(
-                "Enter a valid file name (ex. \"file_name.txt\") with its file extension (if applicable) "
-                "|or| \nEnter \">q\" or \">Q\" to quit:\t")
-            # Attempt to open the file (this will raise FileNotFoundError if the file doesn't exist)
-            with open(user_file_input):
-                pass
-            truth_tester = False
-        except FileNotFoundError:
-            print(f"Error: '{user_file_input}' does not exist.")
+    user_file_input = input(
+        "Enter a valid file name (ex. \"file_name.txt\") with its file extension (if applicable) "
+        "|or| \nEnter \">q\" or \">Q\" to quit:\t")
+    # Attempt to open the file (this will raise FileNotFoundError if the file doesn't exist)
+    with open(user_file_input):
+        pass
 
-    if user_file_input == ">q":
+    if user_file_input.lower() == ">q":
         quit_program_gracefully()
-    elif user_file_input == ">Q":
-        quit_program_gracefully()
-    else:
-        print("\n" + '\033[92m' + "Target File: " + user_file_input + '\033[0m' + "\n")
-        return user_file_input
+
+    print("\n" + '\033[92m' + "Target File: " + user_file_input + '\033[0m' + "\n")
+    return user_file_input
 
 
 def open_option_prompter():
@@ -92,10 +77,12 @@ def open_option_prompter():
     file_printer("file_open_options.txt")
     user_option_input = input("Mode >> ")
 
-    if user_option_input == ">q":
+    if user_option_input.lower() == ">q":
         quit_program_gracefully()
-    elif user_option_input == ">Q":
-        quit_program_gracefully()
+
+    if (user_option_input.lower() != "r" and user_option_input.lower() != "w" and
+            user_option_input.lower() != "x" and user_option_input.lower() != "a"):
+        raise ValueError(f"Error: Invalid input '{user_option_input.lower}'")
 
     print("\n" + '\033[92m' + "File mode: " + user_option_input + '\033[0m' + "\n")
     return user_option_input
@@ -112,14 +99,15 @@ def filter_prompter():
                               "2. The YEAR the meteor fell to Earth\n"
                               "3. QUIT\n"
                               ">>\t")
-    if user_filter_input == "1":
-        return MASS
-    elif user_filter_input == "2":
-        return YEAR
-    elif user_filter_input == "3":
-        quit_program_gracefully()
-    else:
-        print('Invalid option')
+    while True:
+        if user_filter_input == "1":
+            return MASS
+        elif user_filter_input == "2":
+            return YEAR
+        elif user_filter_input == "3":
+            quit_program_gracefully()
+        else:
+            raise ValueError(f"Error: Invalid option '{user_filter_input}'")
 
 
 def output_handler(list_sort, data_value_list):
@@ -137,6 +125,8 @@ def output_handler(list_sort, data_value_list):
         excel_export(data_value_list)
     elif user_output_selection == "4":
         quit_program_gracefully()
+    else:
+        raise ValueError(f"Error: Invalid option '{user_output_selection}'")
 
 
 def fill_user_input(name, option, file_filter, lower, upper):

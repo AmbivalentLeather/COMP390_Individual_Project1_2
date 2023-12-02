@@ -1,6 +1,6 @@
 from meteor_data_class import meteor_object_creator, meteor_value_check
-from user_input import (bound_finder, welcome_text, file_prompter, open_option_prompter,
-                        filter_prompter, output_handler, fill_user_input)
+from user_input import welcome_text, output_handler, fill_user_input
+from try_except import try_filter, try_file, try_option, try_bound
 
 """
 Written by Nicholas Young
@@ -21,11 +21,11 @@ def main():
 
 
 def get_user_input():
-    file_name = file_prompter()
-    file_option = open_option_prompter()
-    meteorite_filter = filter_prompter()
-    lower_bound = bound_finder("LOWER", meteorite_filter)
-    upper_bound = bound_finder("UPPER", meteorite_filter)
+    file_name = try_file()
+    file_option = try_option()
+    meteorite_filter = try_filter()
+    lower_bound = try_bound("LOWER", meteorite_filter)
+    upper_bound = try_bound("UPPER", meteorite_filter)
     return file_name, file_option, meteorite_filter, lower_bound, upper_bound
 
 

@@ -17,15 +17,18 @@ def meteor_object_creator(data_list):
 
 def meteor_value_check(data_list, user_input):
     """
-    Check if data_list user_input.filter
+    Check if a meteorite in data_list matches the requirements given by user_input
+
     :param data_list:
     :param user_input:
     :return:
     """
-    if int(float(data_list[4])) >= int(float(user_input.lower)):
+    if data_list[user_input.filter] == '':
+        pass
+    elif int(float(data_list[user_input.filter])) >= int(float(user_input.lower)):
+        if int(float(data_list[user_input.filter])) <= int(float(user_input.upper)):
+            return True
         return False
-    if int(float(data_list[4])) <= int(float(user_input.upper)):
-        return True
 
 
 class MeteorDataEntry(object):
