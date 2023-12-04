@@ -1,56 +1,69 @@
-"""Filename: try_except.py
+"""The way main.py interacts with user_input.py is through this file
+Filename: try_except.py
 Author: Nicholas Young
 Date: December 2023"""
 
-from user_input import *
+from user_input import filter_prompter, file_prompter, open_option_prompter, bound_finder, output_handler
+import os
 
 
 def try_filter():
     """Try to run the filter_prompter, re-prompt endlessly until acceptable input is given"""
-    testval = True
-    while testval:
+    while True:
         try:
             output = filter_prompter()
-            testval = False
             return output
-        except ValueError:
-            print("\n" + '\033[91m' + "Error: Invalid option" + '\033[0m' + "\n")
+        except ValueError as e:
+            print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
 
 
 def try_file():
     """Try to run the file_prompter, re-prompt endlessly until acceptable input is given"""
 
-    testval = True
-    while testval:
+    while True:
         try:
             output = file_prompter()
-            testval = False
             return output
-        except FileNotFoundError:
-            print("\n" + '\033[91m' + "Error: Invalid file" + '\033[0m' + "\n")
+        except FileNotFoundError as e:
+            print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
 
 
 def try_option():
     """Try to run the open_option_prompter, re-prompt endlessly until acceptable input is given"""
 
-    testval = True
-    while testval:
+    while True:
         try:
             output = open_option_prompter()
-            testval = False
             return output
-        except ValueError:
-            print("\n" + '\033[91m' + "Error: Invalid option" + '\033[0m' + "\n")
+        except ValueError as e:
+            print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
 
 
 def try_bound(bound_string, filter_name):
     """Try to run bound_finder, re-prompt endlessly until acceptable input is given"""
 
-    testval = True
-    while testval:
+    while True:
         try:
             output = bound_finder(bound_string, filter_name)
-            testval = False
             return output
-        except ValueError:
-            print("\n" + '\033[91m' + "Error: Input is not an integer" + '\033[0m' + "\n")
+        except TypeError as e:
+            print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
+
+
+def try_output(meteor_list):
+    """Try to run output_handler, re-prompt endlessly until acceptable input is given"""
+
+    while True:
+        try:
+            output = output_handler(meteor_list)
+            return output
+        except ValueError as e:
+            print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
+
+
+class InvalidFileError(Exception):
+    """Custom exception to handle invalid file errors"""
+
+    def __init__(self, filename):
+        self.filename = filename
+        super().__init__(f"Error: '{filename}' is not a file")

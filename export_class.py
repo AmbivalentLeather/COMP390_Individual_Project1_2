@@ -1,4 +1,5 @@
-"""Filename: export_class.py
+"""Everything needed to export to terminal, text files, or excel files
+Filename: export_class.py
 Author: Nicholas Young
 Date: December 2023"""
 
@@ -35,7 +36,7 @@ def terminal(data_list):
               f'{meteor.recordedLongitude:<24}\t{meteor.geolocation:<24}\t{meteor.states:<24}\t{meteor.counties:<24}')
 
 
-def text_file(data_list):
+def text_file_export(data_list):
     """Output the filtered data to a txt file"""
     file = open(get_clean_datetime_string() + ".txt", "x")
 
@@ -52,8 +53,8 @@ def excel_export(meteor_list):
     excel_workbook = Workbook()
     filtered_data_sheet = excel_workbook.add_sheet('filteredMeteoriteData')
 
-    append_header(filtered_data_sheet)
-    append_meteorites(filtered_data_sheet, meteor_list)
+    excel_append_header(filtered_data_sheet)
+    excel_append_meteorites(filtered_data_sheet, meteor_list)
 
     clean_timestamp_str = get_clean_datetime_string()
     excel_workbook.save(f'{clean_timestamp_str}.xls')
@@ -61,7 +62,7 @@ def excel_export(meteor_list):
     print(f'\n\033[92mFiltered output sent to "{clean_timestamp_str}.xls"\033[0m')
 
 
-def append_meteorites(filtered_data_sheet, meteor_list):
+def excel_append_meteorites(filtered_data_sheet, meteor_list):
     """Append to the filtered_data_sheet every object in the meteor_list"""
     for filtered_index in range(len(meteor_list)):
         current_meteorite_record_obj = meteor_list[filtered_index]
@@ -71,7 +72,7 @@ def append_meteorites(filtered_data_sheet, meteor_list):
             filtered_data_sheet.write(filtered_index + 1, attr_index, attribute_list[attr_index])
 
 
-def append_header(filtered_data_sheet):
+def excel_append_header(filtered_data_sheet):
     """Append the column headers/titles to the filtered_data_sheet. It may be called append but it appends to the
     firs row only"""
     column_headers = ["Name", "Id", "Name Type", "Recorded Class", "Mass", "Fall", "Year", "Rec Lat", "Rec Long",

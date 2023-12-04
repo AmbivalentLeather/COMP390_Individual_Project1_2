@@ -4,8 +4,8 @@ Author: Nicholas Young
 Date: December 2023"""
 
 from meteor_data_class import meteor_object_creator, meteor_value_check
-from user_input import output_handler, fill_user_input
-from try_except import try_filter, try_file, try_option, try_bound
+from user_input import fill_user_input
+from try_except import try_filter, try_file, try_option, try_bound, try_output
 
 
 def main():
@@ -17,25 +17,26 @@ def main():
     user_input = fill_user_input(file_name, file_option, meteorite_filter, lower_bound, upper_bound)
 
     meteor_list = filter_meteorite_data(user_input)
-    output_handler(meteor_list)
+    try_output(meteor_list)
 
 
 def welcome_text():
     """Prints the welcome text to the terminal"""
     print("Welcome to the meteorite filtering program, where we filter your meteorites according to mass OR year "
           "(given some input)")
+    print("As a bonus, we also allow different outputs: Terminal, Text file, or xls file")
     print("Developed by Nick Young")
     print("Released in December of 2023\n")
 
 
 def get_user_input():
     """Runs all other functions that involve user input"""
-    file_name = try_file()
-    file_option = try_option()
-    meteorite_filter = try_filter()
-    lower_bound = try_bound("LOWER", meteorite_filter)
-    upper_bound = try_bound("UPPER", meteorite_filter)
-    return file_name, file_option, meteorite_filter, lower_bound, upper_bound
+    file = try_file()
+    option = try_option()
+    data_filter = try_filter()
+    lower = try_bound("LOWER", data_filter)
+    upper = try_bound("UPPER", data_filter)
+    return file, option, data_filter, lower, upper
 
 
 def filter_meteorite_data(user_input):

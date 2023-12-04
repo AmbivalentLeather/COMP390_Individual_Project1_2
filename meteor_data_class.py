@@ -1,4 +1,4 @@
-"""Functions for the meteor_landings_data.txt file
+"""Create and validate meteorite objects
 Filename: meteor_data_class.py
 Author: Nicholas Young
 Date: December 2023"""

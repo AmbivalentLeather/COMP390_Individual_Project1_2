@@ -1,11 +1,10 @@
-"""Filename: user_input.py
+"""Manage user input
+Filename: user_input.py
 Author: Nicholas Young
 Date: December 2023"""
 
-from export_class import text_file, terminal, excel_export
-
-MASS = 4
-YEAR = 6
+from export_class import terminal, text_file_export, excel_export
+from pathlib import Path
 
 
 def quit_program_gracefully():
@@ -37,12 +36,15 @@ def bound_finder(upper_or_lower, mass_or_year):
     column = 'MASS (g)' if mass_or_year == 4 else 'YEAR'
     input_bound = input("Enter the " + upper_or_lower + " limit (inclusive) for the meteor's " +
                         column + " ('Q' to QUIT):\t")
-    # if isinstance(input_bound, int):
-    #     pass
-    # else:
-    #     raise ValueError(f"Error: '{input_bound}' is not an integer")
     quit_program_gracefully() if input_bound.lower() == "q" else None
-    return input_bound
+    return is_integer(input_bound)
+
+
+def is_integer(input_bound):
+    if input_bound.isdigit():
+        return input_bound
+    else:
+        raise TypeError(f"Error: '{input_bound}' is not an integer")
 
 
 def file_prompter():
@@ -51,18 +53,26 @@ def file_prompter():
     :return:
     """
 
-    user_file_input = input(
-        "Enter a valid file name (ex. \"file_name.txt\") with its file extension (if applicable) "
-        "|or| \nEnter \">q\" or \">Q\" to quit:\t")
-    # Attempt to open the file (this will raise FileNotFoundError if the file doesn't exist)
-    with open(user_file_input):
-        pass
+    user_file_input = input("Enter a valid file name (ex. \"file_name.txt\") with its file extension (if applicable) "
+                            "|or| \nEnter \">q\" or \">Q\" to quit:\t")
 
-    if user_file_input.lower() == ">q":
-        quit_program_gracefully()
+    quit_program_gracefully() if user_file_input.lower() == ">q" else None
+    file_presence_tester(user_file_input)
 
     print("\n" + '\033[92m' + "Target File: " + user_file_input + '\033[0m' + "\n")
     return user_file_input
+
+
+def file_presence_tester(user_file_input):
+    # Attempt to open the file (this will raise FileNotFoundError if the file doesn't exist)
+    if not user_file_input:
+        raise FileNotFoundError(f"Error: The file '{user_file_input}' does not exist")
+
+    file_path = Path(user_file_input)
+    if file_path.exists():
+        pass
+    else:
+        raise FileNotFoundError(f"Error: The file '{user_file_input}' does not exist")
 
 
 def open_option_prompter():
@@ -78,7 +88,7 @@ def open_option_prompter():
 
     if (user_option_input.lower() != "r" and user_option_input.lower() != "w" and
             user_option_input.lower() != "x" and user_option_input.lower() != "a"):
-        raise ValueError(f"Error: Invalid input '{user_option_input.lower}'")
+        raise ValueError(f"Error: Invalid input '{user_option_input}'")
 
     print("\n" + '\033[92m' + "File mode: " + user_option_input + '\033[0m' + "\n")
     return user_option_input
@@ -89,7 +99,6 @@ def filter_prompter():
     Prints request for which column of the file to sort for, takes user input
     :return:
     """
-
     user_filter_input = input("What attribute would you like to filter the data on?\n"
                               "1. meteor MASS (g)\n"
                               "2. The YEAR the meteor fell to Earth\n"
@@ -97,9 +106,9 @@ def filter_prompter():
                               ">>\t")
     while True:
         if user_filter_input == "1":
-            return MASS
+            return 4
         elif user_filter_input == "2":
-            return YEAR
+            return 6
         elif user_filter_input == "3":
             quit_program_gracefully()
         else:
@@ -116,7 +125,7 @@ def output_handler(data_value_list):
     if user_output_selection == "1":
         terminal(data_value_list)
     elif user_output_selection == "2":
-        text_file(data_value_list)
+        text_file_export(data_value_list)
     elif user_output_selection == "3":
         excel_export(data_value_list)
     elif user_output_selection == "4":
@@ -133,6 +142,7 @@ def fill_user_input(name, option, file_filter, lower, upper):
 
 class UserInput(object):
     """An object to store the input of users more portably"""
+
     def __init__(self, name, option, file_filter, lower, upper):
         self.name = name
         self.option = option
