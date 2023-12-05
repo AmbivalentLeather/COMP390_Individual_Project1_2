@@ -13,6 +13,7 @@ from user_input import quit_program_gracefully, bound_finder, filter_prompter
 
 """
 
+
 def test_quit_program_gracefully(capfd, monkeypatch):
     monkeypatch.setattr('builtins.input', lambda _: 'q')
     with pytest.raises(SystemExit) as excinfo:

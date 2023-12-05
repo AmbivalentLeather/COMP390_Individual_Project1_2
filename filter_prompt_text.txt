@@ -1,0 +1,4 @@
+What attribute would you like to filter the data on?
+1. meteor MASS (g)
+2. The YEAR the meteor fell to Earth
+3. QUIT

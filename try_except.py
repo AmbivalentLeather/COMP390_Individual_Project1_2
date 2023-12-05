@@ -8,7 +8,10 @@ import os
 
 
 def try_filter():
-    """Try to run the filter_prompter, re-prompt endlessly until acceptable input is given"""
+    """Try to run the filter_prompter, re-prompt endlessly until acceptable input is given
+
+    :return:
+    """
     while True:
         try:
             output = filter_prompter()
@@ -18,7 +21,10 @@ def try_filter():
 
 
 def try_file():
-    """Try to run the file_prompter, re-prompt endlessly until acceptable input is given"""
+    """Try to run the file_prompter, re-prompt endlessly until acceptable input is given
+
+    :return:
+    """
 
     while True:
         try:
@@ -29,7 +35,10 @@ def try_file():
 
 
 def try_option():
-    """Try to run the open_option_prompter, re-prompt endlessly until acceptable input is given"""
+    """Try to run the open_option_prompter, re-prompt endlessly until acceptable input is given
+
+    :return:
+    """
 
     while True:
         try:
@@ -40,7 +49,12 @@ def try_option():
 
 
 def try_bound(bound_string, filter_name):
-    """Try to run bound_finder, re-prompt endlessly until acceptable input is given"""
+    """Try to run bound_finder, re-prompt endlessly until acceptable input is given
+
+    :param bound_string:
+    :param filter_name:
+    :return:
+    """
 
     while True:
         try:
@@ -51,7 +65,11 @@ def try_bound(bound_string, filter_name):
 
 
 def try_output(meteor_list):
-    """Try to run output_handler, re-prompt endlessly until acceptable input is given"""
+    """Try to run output_handler, re-prompt endlessly until acceptable input is given
+
+    :param meteor_list:
+    :return:
+    """
 
     while True:
         try:

@@ -1,0 +1,5 @@
+How would you like to output the filter results?
+1. On screen (in terminal)
+2. To a TEXT file
+3. To an EXCEL file
+4. QUIT

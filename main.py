@@ -9,7 +9,8 @@ from try_except import try_filter, try_file, try_option, try_bound, try_output
 
 
 def main():
-    """Filters through user input file and prints a table of meteorites matching specific conditions"""
+    """Calls get_user_input(), puts the user input into a user_input object, calls filter_meteorite_data on that
+    object, and then tries to output"""
     welcome_text()
 
     # Put all the user inputs into variables to then put in a 'user_input' object
@@ -30,7 +31,8 @@ def welcome_text():
 
 
 def get_user_input():
-    """Runs all other functions that involve user input"""
+    """Sends the output of the following functions to their own variables: try_file, try_option, try_filter,
+    try_bound(lower and upper). And then this function returns all of those variables."""
     file = try_file()
     option = try_option()
     data_filter = try_filter()
@@ -40,7 +42,7 @@ def get_user_input():
 
 
 def filter_meteorite_data(user_input):
-    """Filters through the data provided in the meteorite data file"""
+    """Filters through the data provided in the meteorite data file, returning a """
     meteor_list = []
 
     with open(user_input.name, user_input.option) as meteorite_landings_data_file:
