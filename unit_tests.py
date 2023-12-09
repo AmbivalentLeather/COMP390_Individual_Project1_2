@@ -7,8 +7,7 @@ from io import StringIO
 from user_input import open_option_prompter, bound_finder, filter_prompter, file_presence_tester
 
 
-# filter_prompter() tests
-def test_filter_prompter_option_1(monkeypatch, capfd):
+def test_filter_prompter_complete(monkeypatch, capfd):
     """Test the filter_prompter function in user_input. Input: 1
     """
     test_string = "1"
@@ -22,8 +21,6 @@ def test_filter_prompter_option_1(monkeypatch, capfd):
                    '3. QUIT\n'
                    '>>\t')
 
-
-def test_filter_prompter_option_2(monkeypatch, capfd):
     """Test the filter_prompter function in user_input. Input: 2
     """
     test_string = "2"
@@ -37,8 +34,6 @@ def test_filter_prompter_option_2(monkeypatch, capfd):
                    '3. QUIT\n'
                    '>>\t')
 
-
-def test_filter_prompter_option_3(monkeypatch, capfd):
     """Test the filter_prompter function in user_input. Input: 3
     """
     test_string = "3"
@@ -48,8 +43,33 @@ def test_filter_prompter_option_3(monkeypatch, capfd):
     assert out == ''
     # Need to find a way to assert that quit_program_gracefully() works
 
+    """Test the filter_prompter function in user_input. Input: 4
+    """
+    with pytest.raises(ValueError) as error:
+        test_string = "4"
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        filter_prompter()
+    assert error.type is ValueError
 
-def test_filter_prompter_garbage(monkeypatch, capfd):
+    """Test the filter_prompter function in user_input. Input: 0
+    """
+    with pytest.raises(ValueError) as error:
+        test_string = "0"
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        filter_prompter()
+    assert error.type is ValueError
+
+    """Test the filter_prompter function in user_input. Input: None
+    """
+    with pytest.raises(EOFError) as error:
+        test_string = None
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        filter_prompter()
+    assert error.type is EOFError
+
     """Test the filter_prompter function in user_input. Input: aosdkjf;oasijer[oaiwjefc'lksadjf[oiwua4f]p9aiwj
     """
     with pytest.raises(ValueError) as error:
@@ -59,8 +79,6 @@ def test_filter_prompter_garbage(monkeypatch, capfd):
         filter_prompter()
     assert error.type is ValueError
 
-
-def test_filter_prompter_empty(monkeypatch, capfd):
     """Test the filter_prompter function in user_input. Input: '' (empty string)
     """
     with pytest.raises(EOFError) as error:
