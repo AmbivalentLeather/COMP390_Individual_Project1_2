@@ -1,4 +1,4 @@
-"""
+"""Run functions (mostly from other files) to take user input and filter through a provided dataset of meteorites.
 Filename: main.py
 Author: Nicholas Young
 Date: December 2023"""
@@ -42,7 +42,7 @@ def get_user_input():
 
 
 def filter_meteorite_data(user_input):
-    """Filters through the data provided in the meteorite data file, returning a """
+    """Filters through the data provided in the meteorite data file, returning a list with the """
     meteor_list = []
 
     with open(user_input.name, user_input.option) as meteorite_landings_data_file:

@@ -10,7 +10,7 @@ import os
 def try_filter():
     """Try to run the filter_prompter, re-prompt endlessly until acceptable input is given
 
-    :return:
+    :return: The output of filter_prompter()
     """
     while True:
         try:
@@ -23,9 +23,8 @@ def try_filter():
 def try_file():
     """Try to run the file_prompter, re-prompt endlessly until acceptable input is given
 
-    :return:
+    :return: The output of file_prompter()
     """
-
     while True:
         try:
             output = file_prompter()
@@ -37,9 +36,8 @@ def try_file():
 def try_option():
     """Try to run the open_option_prompter, re-prompt endlessly until acceptable input is given
 
-    :return:
+    :return: The output of open_option_prompter()
     """
-
     while True:
         try:
             output = open_option_prompter()
@@ -53,7 +51,7 @@ def try_bound(bound_string, filter_name):
 
     :param bound_string:
     :param filter_name:
-    :return:
+    :return: The output of bound_finder(bound_string, filter_name)
     """
 
     while True:
@@ -68,7 +66,7 @@ def try_output(meteor_list):
     """Try to run output_handler, re-prompt endlessly until acceptable input is given
 
     :param meteor_list:
-    :return:
+    :return: The output of output_handler(meteor_list)
     """
 
     while True:
@@ -77,11 +75,3 @@ def try_output(meteor_list):
             return output
         except ValueError as e:
             print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
-
-
-class InvalidFileError(Exception):
-    """Custom exception to handle invalid file errors"""
-
-    def __init__(self, filename):
-        self.filename = filename
-        super().__init__(f"Error: '{filename}' is not a file")

@@ -32,7 +32,10 @@ def meteor_value_check(data_list, user_input):
 
 
 class MeteorDataEntry(object):
-    """This class is used to initialize a meteor object"""
+    """
+    This class is used to initialize a meteor object. Storing the name, identifier, name_type, recorded_class, mass,
+    fall, year, recorded_latitude, recorded_longitude, geolocation, states, counties, of a meteorite in a single object.
+    """
 
     def __init__(self, name, identifier, name_type, recorded_class, mass, fall, year,
                  recorded_latitude, recorded_longitude,

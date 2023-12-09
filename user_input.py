@@ -1,4 +1,4 @@
-"""Manage all user input
+"""Manage all user input. This file contains functions and a user_input object
 Filename: user_input.py
 Author: Nicholas Young
 Date: December 2023"""
@@ -77,7 +77,7 @@ def file_presence_tester(user_file_input):
     """Does nothing if a file (passed as a parameter) exists. Raises FileNotFoundError if it doesn't.
 
     :param user_file_input:
-    :return:
+    :return: Hopefully, nothing.
     """
     if not user_file_input:
         raise FileNotFoundError(f"Error: The file '{user_file_input}' does not exist")
@@ -92,7 +92,7 @@ def file_presence_tester(user_file_input):
 def open_option_prompter():
     """Prints request for which mode to open a file with, takes user input()
 
-    :return:
+    :return: If valid, the user input is returned as given
     """
     file_printer("file_open_options.txt")
     user_option_input = input("Mode >> ")
@@ -110,7 +110,7 @@ def open_option_prompter():
 def filter_prompter():
     """Prints request for which column of the file to sort for, takes user input
 
-    :return:
+    :return: The meteor list item that the user selected
     """
     file_printer("filter_prompt_text.txt")
     user_filter_input = input(">>\t")
