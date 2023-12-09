@@ -1,10 +1,7 @@
-from main import *
-from meteor_data_class import *
 import pytest
 from io import StringIO
-# from testfixtures import TempDirectory
 
-from user_input import open_option_prompter, bound_finder, filter_prompter, file_presence_tester
+from user_input import open_option_prompter, bound_finder, filter_prompter
 
 
 def test_filter_prompter_complete(monkeypatch, capfd):

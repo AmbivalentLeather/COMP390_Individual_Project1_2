@@ -41,3 +41,7 @@ Terminal -> Outputs to the terminal in formatted columns
 TEXT file -> Outputs into a tab seperated (txt) file named with the ISO 8601 date and time
 
 EXCEL file -> Outputs into an Excel (xls) file, also named with the ISO 8601 date and time
+
+# Steps completed
+
+All steps have been completed.
