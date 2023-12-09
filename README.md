@@ -1,4 +1,4 @@
-![Static Badge](https://img.shields.io/badge/project-finished-green)
+![Static Badge](https://img.shields.io/badge/project-Finished-green)
 
 # Project Information
 
