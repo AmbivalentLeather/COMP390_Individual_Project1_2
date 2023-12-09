@@ -89,8 +89,7 @@ def test_filter_prompter_complete(monkeypatch, capfd):
     assert error.type is EOFError
 
 
-# bound_finder(a, b) tests
-def test_bound_finder_10000(monkeypatch, capfd):
+def test_bound_finder_complete(monkeypatch, capfd):
     """Test the bound_finder function in user_input. Input: '10000'
     """
     selected_bound = "UPPER"
@@ -104,8 +103,6 @@ def test_bound_finder_10000(monkeypatch, capfd):
     assert out == ("Enter the " + selected_bound + " limit (inclusive) for the meteor's " +
                    'MASS (g)' + " ('Q' to QUIT):\t")
 
-
-def test_bound_finder_stupid_big_number(monkeypatch, capfd):
     """Test the bound_finder function in user_input. Input: '9999999999999999999999999999999999999999999999999'
     """
     selected_bound = "UPPER"
@@ -119,8 +116,19 @@ def test_bound_finder_stupid_big_number(monkeypatch, capfd):
     assert out == ("Enter the " + selected_bound + " limit (inclusive) for the meteor's " +
                    'MASS (g)' + " ('Q' to QUIT):\t")
 
+    """Test the bound_finder function in user_input. Input: '0'
+    """
+    selected_bound = "UPPER"
+    mass_or_year = 4
+    test_string = '0'
+    simulated_input = StringIO(test_string)
+    monkeypatch.setattr('sys.stdin', simulated_input)
+    bound_finder_output = bound_finder(selected_bound, mass_or_year)
+    assert bound_finder_output == '0'
+    out, err = capfd.readouterr()
+    assert out == ("Enter the " + selected_bound + " limit (inclusive) for the meteor's " +
+                   'MASS (g)' + " ('Q' to QUIT):\t")
 
-def test_bound_finder_garbage(monkeypatch, capfd):
     """Test the bound_finder function in user_input. Input: 'alskdfjasldk'
     """
     selected_bound = "UPPER"
@@ -132,8 +140,6 @@ def test_bound_finder_garbage(monkeypatch, capfd):
         bound_finder(selected_bound, mass_or_year)
     assert error.type is TypeError
 
-
-def test_bound_finder_empty(monkeypatch, capfd):
     """Test the bound_finder function in user_input. Input: ''
     """
     selected_bound = "UPPER"
@@ -145,10 +151,16 @@ def test_bound_finder_empty(monkeypatch, capfd):
         bound_finder(selected_bound, mass_or_year)
     assert error.type is EOFError
 
-
-def test_bound_finder_quit():
-    pass
-    # STILL NEED TO FIND SOME WAY TO TEST THAT IT QUITS
+    """Test the filter_prompter function in user_input. Input: None
+        """
+    with pytest.raises(EOFError) as error:
+        selected_bound = "UPPER"
+        mass_or_year = 4
+        test_string = None
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        bound_finder(selected_bound, mass_or_year)
+    assert error.type is EOFError
 
 
 def test_open_option_prompter_1(monkeypatch, capfd):
@@ -191,4 +203,3 @@ def test_open_option_prompter_3(monkeypatch, capfd):
                    '2. The YEAR the meteor fell to Earth\n'
                    '3. QUIT\n'
                    '>>\t')
-
