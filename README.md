@@ -1,3 +1,5 @@
+![Static Badge](https://img.shields.io/badge/project-finished-green)
+
 # Project Information
 
 Written By: Nicholas Young
