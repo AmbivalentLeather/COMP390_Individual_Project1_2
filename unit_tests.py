@@ -8,7 +8,7 @@ from user_input import open_option_prompter, bound_finder, filter_prompter, file
 
 
 def test_filter_prompter_complete(monkeypatch, capfd):
-    """Test the filter_prompter function in user_input. Input: 1
+    """Test the limits and extremes of filter_prompter()
     """
     test_string = "1"
     simulated_input = StringIO(test_string)
@@ -35,13 +35,13 @@ def test_filter_prompter_complete(monkeypatch, capfd):
                    '>>\t')
 
     """Test the filter_prompter function in user_input. Input: 3
-    """
-    test_string = "3"
-    simulated_input = StringIO(test_string)
-    monkeypatch.setattr('sys.stdin', simulated_input)
-    out, err = capfd.readouterr()
-    assert out == ''
-    # Need to find a way to assert that quit_program_gracefully() works
+        """
+    with pytest.raises(SystemExit) as error:
+        test_string = '3'
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        filter_prompter()
+    assert error.type is SystemExit
 
     """Test the filter_prompter function in user_input. Input: 4
     """
@@ -90,7 +90,7 @@ def test_filter_prompter_complete(monkeypatch, capfd):
 
 
 def test_bound_finder_complete(monkeypatch, capfd):
-    """Test the bound_finder function in user_input. Input: '10000'
+    """Test the limits and extremes of bound_finder()
     """
     selected_bound = "UPPER"
     mass_or_year = 4
@@ -131,9 +131,9 @@ def test_bound_finder_complete(monkeypatch, capfd):
 
     """Test the bound_finder function in user_input. Input: 'alskdfjasldk'
     """
-    selected_bound = "UPPER"
-    mass_or_year = 4
     with pytest.raises(TypeError) as error:
+        selected_bound = "UPPER"
+        mass_or_year = 4
         test_string = 'alskdfjasldk'
         simulated_input = StringIO(test_string)
         monkeypatch.setattr('sys.stdin', simulated_input)
@@ -162,44 +162,112 @@ def test_bound_finder_complete(monkeypatch, capfd):
         bound_finder(selected_bound, mass_or_year)
     assert error.type is EOFError
 
+    """Test the filter_prompter function in user_input. Input: Q
+        """
+    with pytest.raises(SystemExit) as error:
+        selected_bound = "UPPER"
+        mass_or_year = 4
+        test_string = 'Q'
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        bound_finder(selected_bound, mass_or_year)
+    assert error.type is SystemExit
 
-def test_open_option_prompter_1(monkeypatch, capfd):
-    """Test the filter_prompter function in user_input"""
-    test_string = "1"
+    """Test the filter_prompter function in user_input. Input: q
+            """
+    with pytest.raises(TypeError) as error:
+        selected_bound = "UPPER"
+        mass_or_year = 4
+        test_string = 'q'
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        bound_finder(selected_bound, mass_or_year)
+    assert error.type is TypeError
+
+
+def test_open_option_prompter_complete(monkeypatch, capfd):
+    """Test 'r'"""
+    test_string = 'r'
     simulated_input = StringIO(test_string)
     monkeypatch.setattr('sys.stdin', simulated_input)
-    assert filter_prompter() == 4
+    open_option_prompter()
     out, err = capfd.readouterr()
-    assert out == ('What attribute would you like to filter the data on?\n'
-                   '1. meteor MASS (g)\n'
-                   '2. The YEAR the meteor fell to Earth\n'
-                   '3. QUIT\n'
-                   '>>\t')
+    assert out == ('What mode would you like to open the file with?\n'
+                   '"r" - open for reading (default)\n'
+                   '"w" - open for writing, truncating the file first (WARNING: This will '
+                   'delete\n'
+                   'the contents of an existing file!)\n'
+                   '"x" - open for exclusive creation, failing if the file already exists\n'
+                   '"a" - open for writing, appending to the end of file if it exists\n'
+                   'Enter ">q" or ">Q" to quit\n'
+                   'Mode >> \n'
+                   '\x1b[92mFile mode: r\x1b[0m\n'
+                   '\n')
 
-
-def test_open_option_prompter_2(monkeypatch, capfd):
-    """Test the filter_prompter function in user_input"""
-    test_string = "2"
+    """Test 'w'"""
+    test_string = 'w'
     simulated_input = StringIO(test_string)
     monkeypatch.setattr('sys.stdin', simulated_input)
-    assert filter_prompter() == 4
+    open_option_prompter()
     out, err = capfd.readouterr()
-    assert out == ('What attribute would you like to filter the data on?\n'
-                   '1. meteor MASS (g)\n'
-                   '2. The YEAR the meteor fell to Earth\n'
-                   '3. QUIT\n'
-                   '>>\t')
+    assert out == ('What mode would you like to open the file with?\n'
+                   '"r" - open for reading (default)\n'
+                   '"w" - open for writing, truncating the file first (WARNING: This will '
+                   'delete\n'
+                   'the contents of an existing file!)\n'
+                   '"x" - open for exclusive creation, failing if the file already exists\n'
+                   '"a" - open for writing, appending to the end of file if it exists\n'
+                   'Enter ">q" or ">Q" to quit\n'
+                   'Mode >> \n'
+                   '\x1b[92mFile mode: w\x1b[0m\n'
+                   '\n')
 
-
-def test_open_option_prompter_3(monkeypatch, capfd):
-    """Test the filter_prompter function in user_input"""
-    test_string = "3"
+    """Test 'x'"""
+    test_string = 'x'
     simulated_input = StringIO(test_string)
     monkeypatch.setattr('sys.stdin', simulated_input)
-    assert filter_prompter() == 4
+    open_option_prompter()
     out, err = capfd.readouterr()
-    assert out == ('What attribute would you like to filter the data on?\n'
-                   '1. meteor MASS (g)\n'
-                   '2. The YEAR the meteor fell to Earth\n'
-                   '3. QUIT\n'
-                   '>>\t')
+    assert out == ('What mode would you like to open the file with?\n'
+                   '"r" - open for reading (default)\n'
+                   '"w" - open for writing, truncating the file first (WARNING: This will '
+                   'delete\n'
+                   'the contents of an existing file!)\n'
+                   '"x" - open for exclusive creation, failing if the file already exists\n'
+                   '"a" - open for writing, appending to the end of file if it exists\n'
+                   'Enter ">q" or ">Q" to quit\n'
+                   'Mode >> \n'
+                   '\x1b[92mFile mode: x\x1b[0m\n'
+                   '\n')
+
+    """Test 'a'"""
+    test_string = 'a'
+    simulated_input = StringIO(test_string)
+    monkeypatch.setattr('sys.stdin', simulated_input)
+    open_option_prompter()
+    out, err = capfd.readouterr()
+    assert out == ('What mode would you like to open the file with?\n'
+                   '"r" - open for reading (default)\n'
+                   '"w" - open for writing, truncating the file first (WARNING: This will '
+                   'delete\n'
+                   'the contents of an existing file!)\n'
+                   '"x" - open for exclusive creation, failing if the file already exists\n'
+                   '"a" - open for writing, appending to the end of file if it exists\n'
+                   'Enter ">q" or ">Q" to quit\n'
+                   'Mode >> \n'
+                   '\x1b[92mFile mode: a\x1b[0m\n'
+                   '\n')
+
+    with pytest.raises(ValueError) as error:
+        test_string = 'aoiusdfa;sdjnkf'
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        open_option_prompter()
+    assert error.type is ValueError
+
+    with pytest.raises(EOFError) as error:
+        test_string = None
+        simulated_input = StringIO(test_string)
+        monkeypatch.setattr('sys.stdin', simulated_input)
+        open_option_prompter()
+    assert error.type is EOFError
