@@ -44,8 +44,8 @@ def text_file_export(data_list):
                "\tRec Long\tGeolocation\tStates\tCounties\n")
     for index, meteor in enumerate(data_list, 1):
         file.write(f'{index}\t{meteor.name}\t{meteor.id}\t{meteor.nameType}\t{meteor.recordedClass}\t'
-              f'{meteor.mass}\t{meteor.fall}\t{meteor.year}\t{meteor.recordedLatitude}\t'
-              f'{meteor.recordedLongitude}\t{meteor.geolocation}\t{meteor.states}\t{meteor.counties}\n')
+                   f'{meteor.mass}\t{meteor.fall}\t{meteor.year}\t{meteor.recordedLatitude}\t'
+                   f'{meteor.recordedLongitude}\t{meteor.geolocation}\t{meteor.states}\t{meteor.counties}\n')
 
 
 def excel_export(meteor_list):

@@ -183,6 +183,8 @@ def test_bound_finder_complete(monkeypatch, capfd):
 
 
 def test_open_option_prompter_complete(monkeypatch, capfd):
+    """Test the limits and extremes of open_option_prompter()"""
+
     """Test 'r'"""
     test_string = 'r'
     simulated_input = StringIO(test_string)
