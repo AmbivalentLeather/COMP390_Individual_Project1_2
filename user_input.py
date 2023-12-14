@@ -5,6 +5,7 @@ Date: December 2023"""
 
 from export_class import terminal, text_file_export, excel_export
 from pathlib import Path
+import os
 
 
 def quit_program_gracefully():
@@ -71,6 +72,11 @@ def file_prompter():
 
     print("\n" + '\033[92m' + "Target File: " + user_file_input + '\033[0m' + "\n")
     return user_file_input
+
+
+def file_contents_tester(user_file_input):
+    if os.path.getsize(user_file_input) == 0:
+        raise FileNotFoundError(f"ERROR: The file {user_file_input} is empty.")
 
 
 def file_presence_tester(user_file_input):

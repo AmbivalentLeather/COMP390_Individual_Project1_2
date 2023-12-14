@@ -5,7 +5,7 @@ Date: December 2023"""
 
 from meteor_data_class import meteor_object_creator, meteor_value_check
 from user_input import fill_user_input
-from try_except import try_filter, try_file, try_option, try_bound, try_output
+from try_except import try_filter, try_file, try_option, try_bound, try_output, try_file_contents
 
 
 def main():
@@ -46,6 +46,7 @@ def filter_meteorite_data(user_input):
     meteor_list = []
 
     with open(user_input.name, user_input.option) as meteorite_landings_data_file:
+        try_file_contents(user_input.name)
         next(meteorite_landings_data_file)
         for current_line in meteorite_landings_data_file:
             current_line = current_line.strip("\n").split("\t")

@@ -3,7 +3,8 @@ Filename: try_except.py
 Author: Nicholas Young
 Date: December 2023"""
 
-from user_input import filter_prompter, file_prompter, open_option_prompter, bound_finder, output_handler
+from user_input import (filter_prompter, file_prompter, open_option_prompter, bound_finder, output_handler,
+                        file_contents_tester, quit_program_gracefully)
 import os
 
 
@@ -31,6 +32,19 @@ def try_file():
             return output
         except FileNotFoundError as e:
             print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
+
+
+def try_file_contents(file_name):
+    """Try to read the nextline of a file, re-prompt endlessly until a file with contents is given
+
+    :return: The output of file_prompter()
+    """
+    try:
+        output = file_contents_tester(file_name)
+        return output
+    except FileNotFoundError as e:
+        print("\n" + '\033[91m' + f"{str(e)}" + '\033[0m' + "\n")
+        quit_program_gracefully()
 
 
 def try_option():
