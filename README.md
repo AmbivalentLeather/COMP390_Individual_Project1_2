@@ -1,6 +1,6 @@
-![Static Badge](https://img.shields.io/badge/project-Finished-green)
-![Static Badge](https://img.shields.io/badge/units-Tested-green)
-![Static Badge](https://img.shields.io/badge/hotel-Trivago-green)
+[//]: <> ![Static Badge](https://img.shields.io/badge/project-Finished-green)
+[//]: <> ![Static Badge](https://img.shields.io/badge/units-Tested-green)
+[//]: <> ![Static Badge](https://img.shields.io/badge/hotel-Trivago-green)
 
 # Project Information
 
